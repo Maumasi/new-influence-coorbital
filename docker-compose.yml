@@ -1,0 +1,66 @@
+version: '3.8'
+services:
+  server:
+    build: ./server  # Path to your FastAPI application
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/app
+    command: uvicorn main:app --host 0.0.0.0 --reload
+
+  client:
+    build: ./client  # Path to your React application
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./client:/app
+    stdin_open: true
+    tty: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# version: '3'
+# services:
+#   # asteroid-db:
+#   #   image: 'postgres:14.1'
+#   #   restart: unless-stopped
+
+#   #   # persist data on restarts
+#   #   volumes:
+#   #     - ./asteroid-data:/var/lib/postgresql/data
+#   #   environment:
+#   #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+#   asteroid-charting:
+#     restart: unless-stopped
+#     build:
+#       context: ./asteroid-charting
+#       dockerfile: ${DOCKER_FILE_NAME}
+#     # ports:
+#     #   - "3000:3000"
+#     volumes:
+#       - /app/repo/db/__asteroid-meta.sqlite
+#       - ./asteroid-charting:/app
+#     # environment:
+#     #   - PGUSER=${PGUSER}
+#     #   - PGHOST=${PGHOST}
+#     #   - PGDATABASE=${PGDATABASE}
+#     #   - PGPASSWORD=${PGPASSWORD}
+#     #   - PGPORT=${PGPORT}
+#     # depends_on:
+#     #   - asteroid-db
+      

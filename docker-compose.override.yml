@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  server:
+    environment:
+      - DEBUG=1  # Example: Set an environment variable to enable debug mode
+    ports:
+      - "8001:8000"  # Example: Change the port mapping for development if needed
+    volumes:
+      - ./server:/app  # Ensure the entire server application directory is mapped
+      # Map any additional directories or config files you want to be live-reloaded, e.g.,
+      - ./server/app/config:/app/config  # Example: specific config directory (adjust path as needed)
+
+
+  client:
+    ports:
+      - "3000:80"  # Change the client port to reflect a more common development port for React apps
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8001  # Point to the development server URL if different
+    volumes:
+      - ./client:/app  # Map the source code for live updates
+      - /app/node_modules  # Use a volume for node_modules to prevent overriding by the host
+      # Add any other directories that need to be live-reloaded. For example:
+      - ./client/public:/app/public  # If you have static assets to be live-reloaded
+      - ./client/src:/app/src  # Ensure live reloading of source files
